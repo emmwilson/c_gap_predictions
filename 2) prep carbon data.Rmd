@@ -1,0 +1,92 @@
+---
+title: "2) prep carbon data"
+author: "Emmerson Wilson"
+date: "2024-06-17"
+output: html_document
+---
+
+# load packages
+```{r}
+pacman::p_load(
+  dplyr,
+  tidyverse,
+  readxl,
+  openxlsx)
+```
+
+# set working directory
+```{r}
+setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stats/clean code")
+```
+
+# data
+## carbon 
+```{r}
+c_m2_sites <- read_xlsx("required data/c_m2_site.xlsx")
+```
+
+
+## environmental data
+```{r}
+env_site_final <- read_xlsx("required data/env_sites_final.xlsx")
+```
+
+## join environmentl and carbon data
+```{r}
+c_env_sites <- full_join(c_m2_sites, env_site_final) %>%
+  dplyr::select(!c(FAC, SPC, CC, CEC_LCT)) # remove columns with high correlations (from "1) environmental correlation") and columns chosen to remove to get closer to an events per variable rule of 7
+```
+
+## scale numerical variables
+scale predictor variables (but don't center around 0)
+seperate for each park 
+
+### GM
+```{r}
+c_env_sites_GM <- c_env_sites%>% 
+  filter(park == "GM") 
+
+c_env_sites_scale_GM <- c_env_sites_GM
+
+c_env_sites_scale_GM[c(11:16, 18)] <- scale(c_env_sites_GM[c(11:16, 18)], center = F)
+```
+
+### TN
+```{r}
+c_env_sites_TN <- c_env_sites%>% 
+  filter(park == "TN") 
+
+c_env_sites_scale_TN <- c_env_sites%>% 
+  filter(park == "TN")
+
+c_env_sites_scale_TN[c(11:16, 18)] <- scale(c_env_sites_TN[c(11:16, 18)], center = F) 
+```
+
+## make categorical variable into character strings
+a,b,c in front so categories appear in order from lowest to highest
+```{r}
+c_env_sites_scale_GM$Moose_new <- as.character(c_env_sites_scale_GM$Moose_new) # make moose categories characters
+
+c_env_sites_scale_GM["Moose_new"][c_env_sites_scale_GM["Moose_new"] == 1] <- "aL"
+c_env_sites_scale_GM["Moose_new"][c_env_sites_scale_GM["Moose_new"] == 2] <- "aL"
+c_env_sites_scale_GM["Moose_new"][c_env_sites_scale_GM["Moose_new"] == 3] <- "bH"
+c_env_sites_scale_GM["Moose_new"][c_env_sites_scale_GM["Moose_new"] == 4] <- "cX"
+
+c_env_sites_scale_GM$Moose_new <- as.factor(c_env_sites_scale_GM$Moose_new)
+
+c_env_sites_scale_TN$Moose_new <- as.character(c_env_sites_scale_TN$Moose_new) # make moose categories characters
+
+c_env_sites_scale_TN["Moose_new"][c_env_sites_scale_TN["Moose_new"] == 1] <- "aL"
+c_env_sites_scale_TN["Moose_new"][c_env_sites_scale_TN["Moose_new"] == 2] <- "bM"
+c_env_sites_scale_TN["Moose_new"][c_env_sites_scale_TN["Moose_new"] == 3] <- "cH"
+c_env_sites_scale_TN["Moose_new"][c_env_sites_scale_TN["Moose_new"] == 4] <- "dV"
+
+c_env_sites_scale_TN$Moose_new <- as.factor(c_env_sites_scale_TN$Moose_new)
+```
+
+# export datasets
+```{r}
+write.xlsx(c_env_sites_scale_GM, file = "data created/c_env_sites_scale_GM.xlsx")
+write.xlsx(c_env_sites_scale_TN, file = "data created/c_env_sites_scale_TN.xlsx")
+```
+

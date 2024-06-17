@@ -1,0 +1,46 @@
+---
+title: "3) prep gap data"
+author: "Emmerson Wilson"
+date: "2024-06-17"
+output: html_document
+---
+
+# load packages
+```{r}
+pacman::p_load(
+  dplyr,
+  tidyverse,
+  readxl,
+  openxlsx)
+```
+
+# set working directory
+```{r}
+setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stats/clean code")
+```
+
+# data
+```{r}
+# made in 5) c lm total.Rmd
+c_env_sites_scale_GM <- read_xlsx("data created/c_env_sites_scale_GM.xlsx")
+c_env_sites_scale_TN <- read_xlsx("data created/c_env_sites_scale_TN.xlsx")
+```
+
+## make gap binomial (1,0)
+```{r}
+c_env_sites_scale_GM_gap <- c_env_sites_scale_GM
+c_env_sites_scale_GM_gap$gap[c_env_sites_scale_GM_gap$gap == "Gap"] <- 0
+c_env_sites_scale_GM_gap$gap[c_env_sites_scale_GM_gap$gap == "Mature"] <- 1
+c_env_sites_scale_GM_gap$gap <- as.integer(c_env_sites_scale_GM_gap$gap)
+
+c_env_sites_scale_TN_gap <- c_env_sites_scale_TN
+c_env_sites_scale_TN_gap$gap[c_env_sites_scale_TN_gap$gap == "Gap"] <- 0
+c_env_sites_scale_TN_gap$gap[c_env_sites_scale_TN_gap$gap == "Mature"] <- 1
+c_env_sites_scale_TN_gap$gap <- as.integer(c_env_sites_scale_TN_gap$gap)
+```
+
+## export
+```{r}
+write.xlsx(c_env_sites_scale_GM_gap, file = "data created/c_env_sites_scale_GM_gap.xlsx")
+write.xlsx(c_env_sites_scale_TN_gap, file = "data created/c_env_sites_scale_TN_gap.xlsx")
+```
