@@ -20,9 +20,8 @@ pacman::p_load(
 ```
 
 # set working directory
-set this to wherever the code has been cloned
+set this to wherever the code has been downloaded
 ```{r}
-# change this to whichever folder you downloaded the code to
 setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stats/c_gap_predictions")
 ```
 

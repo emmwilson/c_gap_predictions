@@ -89,10 +89,6 @@ names(GM_lm_uni) <- full_var # make sure names of objects in list consistent
 # get summary of each univariate model
 GM_lm_uni_summary <- lapply(GM_lm_uni, summary)
 
-# also get AICc
-GM_lm_uni_AIC <- as.data.frame(t(as.data.frame(lapply(GM_lm_uni, AICc)))) 
-GM_lm_uni_AIC$model <- rownames(GM_lm_uni_AIC)
-
 # add to a dataframe
 GM_uni_summary_all <- Reduce(full_join,lapply(mapply(cbind, lapply(lapply(GM_lm_uni_summary, coef), as.data.frame), "model"=names(GM_lm_uni_summary), SIMPLIFY=F), rownames_to_column, var = "predictor")) 
 GM_uni_summary_all <- GM_uni_summary_all[,c(5,6,1:4)]
@@ -216,10 +212,6 @@ names(TN_lm_uni) <- full_var # make sure names of objects in list consistent
 ```{r}
 # get summary of each univariate model
 TN_lm_uni_summary <- lapply(TN_lm_uni, summary)
-
-# also get AICc
-TN_lm_uni_AIC <- as.data.frame(t(as.data.frame(lapply(TN_lm_uni, AICc)))) 
-TN_lm_uni_AIC$model <- rownames(TN_lm_uni_AIC)
 
 # add to dataframe
 TN_uni_summary_all <- Reduce(full_join,lapply(mapply(cbind, lapply(lapply(TN_lm_uni_summary, coef), as.data.frame), "model"=names(TN_lm_uni_summary), SIMPLIFY=F), rownames_to_column, var = "predictor")) 

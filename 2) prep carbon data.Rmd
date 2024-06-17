@@ -16,7 +16,7 @@ pacman::p_load(
 
 # set working directory
 ```{r}
-setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stats/clean code")
+setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stats/c_gap_predictions")
 ```
 
 # data
@@ -86,7 +86,7 @@ c_env_sites_scale_TN$Moose_new <- as.factor(c_env_sites_scale_TN$Moose_new)
 
 # export datasets
 ```{r}
-write.xlsx(c_env_sites_scale_GM, file = "data created/c_env_sites_scale_GM.xlsx")
-write.xlsx(c_env_sites_scale_TN, file = "data created/c_env_sites_scale_TN.xlsx")
+write.xlsx(c_env_sites_scale_GM, file = "created data/c_env_sites_scale_GM.xlsx")
+write.xlsx(c_env_sites_scale_TN, file = "created data/c_env_sites_scale_TN.xlsx")
 ```
 

@@ -16,14 +16,14 @@ pacman::p_load(
 
 # set working directory
 ```{r}
-setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stats/clean code")
+setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stats/c_gap_predictions")
 ```
 
 # data
 ```{r}
 # made in 5) c lm total.Rmd
-c_env_sites_scale_GM <- read_xlsx("data created/c_env_sites_scale_GM.xlsx")
-c_env_sites_scale_TN <- read_xlsx("data created/c_env_sites_scale_TN.xlsx")
+c_env_sites_scale_GM <- read_xlsx("created data/c_env_sites_scale_GM.xlsx")
+c_env_sites_scale_TN <- read_xlsx("created data/c_env_sites_scale_TN.xlsx")
 ```
 
 ## make gap binomial (1,0)
@@ -41,6 +41,6 @@ c_env_sites_scale_TN_gap$gap <- as.integer(c_env_sites_scale_TN_gap$gap)
 
 ## export
 ```{r}
-write.xlsx(c_env_sites_scale_GM_gap, file = "data created/c_env_sites_scale_GM_gap.xlsx")
-write.xlsx(c_env_sites_scale_TN_gap, file = "data created/c_env_sites_scale_TN_gap.xlsx")
+write.xlsx(c_env_sites_scale_GM_gap, file = "created data/c_env_sites_scale_GM_gap.xlsx")
+write.xlsx(c_env_sites_scale_TN_gap, file = "created data/c_env_sites_scale_TN_gap.xlsx")
 ```
