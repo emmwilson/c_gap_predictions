@@ -22,7 +22,6 @@ setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stat
 
 # import training datasets
 ```{r}
-# made in 5) c lm total.Rmd
 GM_c_env <- read_xlsx("created data/c_env_sites_scale_GM.xlsx")
 TN_c_env <- read_xlsx("created data/c_env_sites_scale_TN.xlsx")
 ```

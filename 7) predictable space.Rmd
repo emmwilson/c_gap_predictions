@@ -38,7 +38,7 @@ clip_TN_rast[clip_TN_rast==0] <- NA
 
 ## clip
 ```{r}
-GM_env_rast_masked <- crop(GM_env_rast, clip_GM_rast, mask=TRUE) # this part isn't taking out the proper cells *had to make the mask a raster
+GM_env_rast_masked <- crop(GM_env_rast, clip_GM_rast, mask=TRUE) 
 names(GM_env_rast_masked) <-  c( "SPC", "FAC", "FHT", "CC", "LCT", "EVIamp", "EVImed","SLO", "ELE", "ASP", "LGS", "Moose_new",  "Moose_newl",  "Moose_newh",  "Moose_newx") # name layers
 
 #remove unwanted layers
