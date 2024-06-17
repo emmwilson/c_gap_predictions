@@ -21,7 +21,6 @@ setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stat
 
 # data
 ```{r}
-# made in 5) c lm total.Rmd
 c_env_sites_scale_GM <- read_xlsx("created data/c_env_sites_scale_GM.xlsx")
 c_env_sites_scale_TN <- read_xlsx("created data/c_env_sites_scale_TN.xlsx")
 ```
