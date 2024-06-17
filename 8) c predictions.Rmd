@@ -23,19 +23,19 @@ setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stat
 # import training datasets
 ```{r}
 # made in 5) c lm total.Rmd
-GM_c_env <- read_xlsx("data created/c_env_sites_scale_GM.xlsx")
-TN_c_env <- read_xlsx("data created/c_env_sites_scale_TN.xlsx")
+GM_c_env <- read_xlsx("created data/c_env_sites_scale_GM.xlsx")
+TN_c_env <- read_xlsx("created data/c_env_sites_scale_TN.xlsx")
 ```
 
 # import environmental rasters
 ```{r}
-GM_env_raster_masked_scale <- rast("data created/GM_env_raster_masked_scaled.tif")
-TN_env_raster_masked_scale <- rast("data created/TN_env_raster_masked_scaled.tif")
+GM_env_raster_masked_scale <- rast("created data/GM_env_raster_masked_scaled.tif")
+TN_env_raster_masked_scale <- rast("created data/TN_env_raster_masked_scaled.tif")
 ```
 
 # import glm function
 ```{r}
-source("4) glm function.R")
+source("4) glm functions.R")
 ```
 
 # predict
@@ -57,7 +57,7 @@ GM_predict_tot_transform <- GM_predict_tot
 values(GM_predict_tot_transform) <- exp(values(GM_predict_tot))
 
 # export
-writeRaster(GM_predict_tot_transform, filename="data created/GM_predict_tot.tif", overwrite=TRUE)
+writeRaster(GM_predict_tot_transform, filename="created data/GM_predict_tot.tif", overwrite=TRUE)
 ```
 
 ## TN
@@ -77,5 +77,5 @@ TN_predict_tot_transform <- TN_predict_tot
 values(TN_predict_tot_transform) <- exp(values(TN_predict_tot))
 
 # export
-writeRaster(TN_predict_tot_transform, filename="data created/TN_predict_tot.tif", overwrite=TRUE)
+writeRaster(TN_predict_tot_transform, filename="created data/TN_predict_tot.tif", overwrite=TRUE)
 ```
