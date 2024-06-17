@@ -26,7 +26,7 @@ GM_c_env <- read_xlsx("created data/c_env_sites_scale_GM.xlsx")
 TN_c_env <- read_xlsx("created data/c_env_sites_scale_TN.xlsx")
 ```
 
-# import environmental rasters
+# import scaled environmental rasters
 ```{r}
 GM_env_raster_masked_scale <- rast("created data/GM_env_raster_masked_scaled.tif")
 TN_env_raster_masked_scale <- rast("created data/TN_env_raster_masked_scaled.tif")

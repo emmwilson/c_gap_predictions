@@ -1,0 +1,78 @@
+---
+title: "9) gap predictions"
+author: "Emmerson Wilson"
+date: "2024-06-17"
+output: html_document
+---
+
+```{r}
+pacman::p_load(
+  dplyr,
+  tidyverse,
+  readxl,
+  openxlsx,
+  cv,
+  lme4,
+  terra)
+```
+
+```{r}
+setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stats/c_gap_predictions")
+```
+
+# import training datasets
+```{r}
+GM_gap_env <- read_xlsx("created data/c_env_sites_scale_GM_gap.xlsx")
+TN_gap_env <- read_xlsx("created data/c_env_sites_scale_TN_gap.xlsx")
+```
+
+# import scaled environmental rasters
+```{r}
+GM_env_raster_masked_scaled <- rast("created data/GM_env_raster_masked_scaled.tif") # stack of enviornmental variables' rasters
+TN_env_raster_masked_scaled <- rast("created data/TN_env_raster_masked_scaled.tif")
+```
+
+# import glm function
+```{r}
+source("4) glm functions.R")
+```
+
+# predict
+
+## GM
+```{r}
+# list of variables in best model from 5) c lm total.Rmd
+GM_var_gap <- list("FHT", "EVIamp")
+
+# run best model
+GM_model_tot_gap <- firths_glm(GM_var_gap, df = GM_gap_env, c = "gap")
+
+# predict
+GM_predict_tot_gap <- terra::predict(GM_env_raster_masked_scaled, GM_model_tot_gap)
+
+# transform predictions
+GM_predict_tot_gap_transform <- GM_predict_tot_gap
+values(GM_predict_tot_gap_transform) <- 1 / (1 + exp(-values(GM_predict_tot_gap)))
+
+# export
+writeRaster(GM_predict_tot_gap_transform, filename="created data/GM_predict_gap.tif", overwrite=TRUE)
+```
+
+## TN
+```{r}
+# list of variables in best model from 5) c lm total.Rmd
+TN_var_gap <- list("FHT", "EVIamp")
+
+# run best model
+TN_model_tot_gap <- firths_glm(TN_var_gap, df = TN_gap_env, c = "gap")
+
+# predict
+TN_predict_tot_gap <- terra::predict(TN_env_raster_masked_scaled, TN_model_tot_gap)
+
+# transform predictions
+TN_predict_tot_gap_transform <- TN_predict_tot_gap
+values(TN_predict_tot_gap_transform) <- 1 / (1 + exp(-values(TN_predict_tot_gap)))
+
+# export
+writeRaster(TN_predict_tot_gap_transform, filename="created data/TN_predict_gap.tif", overwrite=TRUE)
+```
