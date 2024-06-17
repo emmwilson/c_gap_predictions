@@ -1,0 +1,77 @@
+---
+title: "1) environmental correlations"
+author: "Emmerson Wilson"
+date: "2024-06-17"
+output: html_document
+---
+
+# load packages
+```{r}
+pacman::p_load(
+  dplyr,
+  tidyverse,
+  readxl,
+  ggplot2,
+  corrplot,
+  PerformanceAnalytics,
+  usdm,
+  janitor,
+  openxlsx)
+```
+
+# set working directory
+set this to wherever the code has been cloned
+```{r}
+# change this to whichever folder you downloaded the code to
+setwd("/Users/emmersonEmmerson/Documents/Master's/C_forecasting_NL/code_for_stats/c_gap_predictions")
+```
+
+# import environmental data from plot locations
+```{r}
+env_sites <- read_xlsx("required data/env_sites_final.xlsx")
+
+# separate by park
+env_sites_GM <- env_sites %>% 
+  filter(park == "GM") # for plots in Gros Morne National Park
+
+env_sites_TN <- env_sites %>% 
+  filter(park == "TN") # for plots in Terra Nova National Park
+```
+
+# correlation
+
+## both parks together
+```{r, warning=FALSE}
+predictors_site_env <- env_sites[, -c(1:7)]
+
+# visual representation
+varCor <- cor(predictors_site_env, use="pairwise.complete.obs")
+corrplot(varCor,  tl.col='black')
+
+# numerical representation
+chart.Correlation(predictors_site_env, histogram=F, pch=19)
+```
+
+## Gros Morne
+```{r, warning=FALSE}
+predictors_site_env_GM <- env_sites_GM[, -c(1:7)]
+
+# visual representation
+varCor_GM <- cor(predictors_site_env_GM, use="pairwise.complete.obs")
+corrplot(varCor_GM,  tl.col='black')
+
+# numerical representation
+chart.Correlation(predictors_site_env_GM, histogram=F, pch=19)
+```
+
+## both parks together
+```{r, warning=FALSE}
+predictors_site_env_TN <- env_sites_TN[, -c(1:7)]
+
+# visual representation
+varCor_TN <- cor(predictors_site_env_TN, use="pairwise.complete.obs")
+corrplot(varCor_TN,  tl.col='black')
+
+# numerical representation
+chart.Correlation(predictors_site_env_TN, histogram=F, pch=19)
+```
