@@ -84,13 +84,13 @@ TN_env_raster_masked_nm <- subset(TN_env_rast_masked, c(1:7))
 # rescale GM
 for (i in 1:nlyr(GM_env_raster_masked_nm)){
   sub <- subset(GM_env_raster_masked_nm,i)
-  GM_env_raster_masked_scale[[sub@cpp$names]] <- terra::scale(sub, center = FALSE, scale = envscale_GM[[i]])
+  GM_env_raster_masked_scale[[sub@cpp$names]] <- terra::scale(sub, center = FALSE, scale = envscale_GM[[i]]) # need to change cpp to ptr if working on windows
   }
 
 # rescale TN
 for (i in 1:nlyr(TN_env_raster_masked_nm)){
   sub <- subset(TN_env_raster_masked_nm,i)
-  TN_env_raster_masked_scale[[sub@cpp$names]] <- terra::scale(sub, center = FALSE, scale = envscale_TN[[i]])
+  TN_env_raster_masked_scale[[sub@cpp$names]] <- terra::scale(sub, center = FALSE, scale = envscale_TN[[i]]) # need to change cpp to ptr if working on windows
   }
 ```
 
